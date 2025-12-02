@@ -2,27 +2,18 @@
     $(submissionButtonId).prop("disabled", !enable);
 }
 
-function appendFormulaParser(inputId, inputDivId, submissionButtonId, referenceArray, okIconClass, errorIconClass) {
+function appendFormulaParser(inputId, inputDivId, submissionButtonId, referenceArray, okIconClass, errorIconClass, errorIfNull) {
     inputId = "#" + inputId;
-    getInputId();
     $(inputId).css("padding-left", "23px");
     inputDivId = "#" + inputDivId;
     let targetDiv = $(inputDivId);
     let span = '<span class="input-group-append jsep-notification"><i class="text-success ok ' + okIconClass + '"></i><i class="text-danger error ' + errorIconClass + '"></i></span>';
     targetDiv.append(span);
     $('.jsep-container').append('<span id="validationMessage" class="text-danger" style="display: none;"></span>');
-    console.log($(inputId).val());
-    checkIdentifiers($(inputId).val(), inputId, submissionButtonId, referenceArray)
+    checkIdentifiers($(inputId).val(), inputId, submissionButtonId, referenceArray, errorIfNull)
 }
 
-function getInputId(){
-    var input = $(".jsep-container") > $(".jsep-input");
-    // var inputId = input.attr("id");
-    console.log("input: " + input);
-    console.log($('.jsep-input', '#formula'));
-}
-
-function checkIdentifiers(formula, inputId, submissionButtonId, referenceArray) {
+function checkIdentifiers(formula, inputId, submissionButtonId, referenceArray, errorIfNull) {
     let validationMessageId = "#validationMessage";
 
     function formatError(message, inputId, validationMessageId, submissionButtonId) {
@@ -39,7 +30,7 @@ function checkIdentifiers(formula, inputId, submissionButtonId, referenceArray) 
         return false;
     }
 
-    if (formula.length > 0) {
+    if (formula !== undefined && formula !== null && formula.length > 0) {
         try {
             function getAllIdentifiers(obj) {
                 let values = [];
@@ -85,11 +76,11 @@ function checkIdentifiers(formula, inputId, submissionButtonId, referenceArray) 
             return formatError(e.message, inputId, validationMessageId, submissionButtonId);
         }
     } else {
-        return formatError('Formula cannot be null or empty', inputId, validationMessageId, submissionButtonId);
+        return !errorIfNull || formatError('Formula cannot be null or empty', inputId, validationMessageId, submissionButtonId);
     }
 }
 
-function formulaInput(inputId, submissionButtonId, variables) {
+function formulaInput(inputId, submissionButtonId, variables, errorIfNull) {
     inputId = "#" + inputId;
     submissionButtonId = "#" + submissionButtonId;
     $(inputId).prop("placeholder", "ex: 1 + 2 - 3");

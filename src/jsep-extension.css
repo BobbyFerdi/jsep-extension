@@ -31,7 +31,6 @@
     text-align: center;
 }
 
-
 .jsep-container .jsep-notification .ok {
     color: #008040;
     font-weight: 900;
@@ -101,5 +100,21 @@
 }
 
 .ui-autocomplete {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 5px 7px 2px rgba(0, 0, 0, 0.3);
+    min-height: 50px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: absolute;
+    display: none;
     z-index: 99999999;
+}
+
+.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating),
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3),
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control,
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
 }

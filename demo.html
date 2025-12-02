@@ -9,62 +9,59 @@
     <title>jsep-extension Demo</title>
     <meta name="description" content=""/>
 
-    <!-- Core Styles -->
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
-    <!-- Fonts & Flag icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
-    <!-- jsep -->
+    <link rel="stylesheet" href="./dist/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./dist/fontawesome/fontawesome.min.css">
     <link rel="stylesheet" href="./src/jsep-extension.css"/>
+    <link rel="stylesheet" href="./dist/jquery/jquery-ui.css">
 
-    <!-- jquery-ui -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/themes/base/jquery-ui.min.css"
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="./dist/jquery/jquery-3.7.1.min.js"></script>
+    <script src="./dist/jquery-ui/jquery-ui.min.js"></script>
+    <script src="./dist/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./dist/fontawesome/all.min.js"></script>
+    <script src="./dist/jsep/jsep.iife.min.js"></script>
+    <script src="./src/jsep-extension.js"></script>
+
+    <script>
+        const variables = ["Amount", "BranchCode", "BranchName"];
+        const inputId = "formulaInput";
+        const buttonId = "btnAdd";
+        appendFormulaParser(inputId, "formula", buttonId, variables, "fa-solid fa-check", "fa-solid fa-xmark", false);
+        $(function () {
+            formulaInput(inputId, buttonId, variables, false);
+        });
+    </script>
+
 </head>
 
 <body>
 
 <!-- Core Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script><!-- `perfect-scrollbar` library required by SideNav plugin -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsep@1.4.0/dist/iife/jsep.iife.min.js"></script>
-<script src="./src/jsep-extension.js"></script>
-
-<!-- Page Scripts-->
-
-<script>
-    let variables = ["Amount", "BranchCode", "BranchName"];
-    appendFormulaParser("input", "formula", "btnAdd", variables, "fa-solid fa-check", "fa-solid fa-xmark");
-    formulaInput("input", "btnAdd", variables);
-</script>
-
-<form class="pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewFormulaForm" method="POST"
-      action="./success.html">
-    <div class="mb-6 jsep-container">
-        <label class="form-label">Formula</label>
-        <div class="input-group jsep-input" id="formula">
-            <input class="form-control ui-autocomplete-input border-danger" type="text" id="input">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-6">
+            <div class="card-body pt-4">
+                <form class="pt-0" id="addNewFormulaForm" method="POST"
+                      action="./success.html">
+                    <div class="mb-6 jsep-container">
+                        <label class="form-label">Formula</label>
+                        <div class="input-group" id="formula">
+                            <input class="form-control ui-autocomplete-input" type="text" id="formulaInput"
+                                   autocomplete="on">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" class="btn btn-primary me-3 data-submit" id="btnAdd">Add
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary me-3 data-submit" name="btnAdd" id="btnAdd"
-                disabled="">Add
-        </button>
-        <button type="reset" class="btn btn-label-danger">Cancel</button>
     </div>
-</form>
+</div>
 </body>
 
 </html>
